@@ -30,7 +30,7 @@ let links = await instagramGetUrl("https://www.instagram.com/p/CL5QQPOJFl_/")
 console.log(links)
 ```
 ## Output Exemple
-```json
+```
 {
     results_number : 3,
     url_list : [

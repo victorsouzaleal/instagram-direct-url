@@ -1,0 +1,32 @@
+{
+  "name": "instagram-direct-url",
+  "version": "1.0.0",
+  "description": "Get direct url to download from Instagram media links",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorsouzaleal/instagram-direct-url.git"
+  },
+  "keywords": [
+    "instagram-downloader",
+    "instagram-url",
+    "instagram-link",
+    "instagram-direct-url",
+    "downloader",
+    "url"
+  ],
+  "author": "victorsouzaleal <victorsouzaleal@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/victorsouzaleal/instagram-direct-url/issues"
+  },
+  "homepage": "https://github.com/victorsouzaleal/instagram-direct-url#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
+    "querystring": "^0.2.1"
+  }
+}

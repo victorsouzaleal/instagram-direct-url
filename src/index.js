@@ -1,7 +1,7 @@
 const axios = require("axios"), cheerio = require("cheerio"),qs = require('querystring')
-module.exports = getUrl = (url_media) =>{
+module.exports = instagramGetUrl = (url_media) =>{
     return new Promise((resolve,reject)=>{
-        var url = "https://sssinstagram.com/results";
+        var url = "https://sssinstagram.com/results"
         const requestBody = {
             id: url_media.replace("reel", "p"),
         }
@@ -10,12 +10,11 @@ module.exports = getUrl = (url_media) =>{
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }
-        axios.post(url, qs.stringify(requestBody), config).then((result) => {
-            let $ = cheerio.load(result.data);
-            let ig = [];
-            $('div.button_div > a').each(function (i, e) {
-                ig[i] = $(this).attr("href");
-            });
+        axios.post(url, qs.stringify(requestBody), config).then(result => {
+            let $ = cheerio.load(result.data), ig = []
+            $('div.button_div > a').each(i => {
+                ig[i] = $(this).attr("href")
+            })
             if(ig.length == 0) reject(new Error("404 Media not found"))
             resolve(ig)
         }).catch((err) => {

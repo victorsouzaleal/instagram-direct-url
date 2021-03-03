@@ -7,8 +7,6 @@
 <p align="center">
 <a href="https://github.com/victorsouzaleal"><img title="Autor" src="https://img.shields.io/badge/Author-victorsouzaleal-5851DB.svg?style=for-the-badge&logo=github"></a>
 </p>
-<p align="center">
-<a href="https://www.codefactor.io/repository/github/victorsouzaleal/instagram-direct-url"><img src="https://www.codefactor.io/repository/github/victorsouzaleal/instagram-direct-url/badge/main" alt="CodeFactor" /></a>
 </p>
 <p align="center">
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fvictorsouzaleal%2Finstagram-direct-url.git&count_bg=%23833AB4&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true"/></a>

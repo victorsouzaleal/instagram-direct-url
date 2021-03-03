@@ -11,13 +11,16 @@
     "url": "git+https://github.com/victorsouzaleal/instagram-direct-url.git"
   },
   "keywords": [
-    "instagram-downloader",
-    "instagram-url",
-    "instagram-link",
-    "instagram-direct-url",
-    "instagram-url-direct",
+    "instagram",
     "downloader",
-    "url"
+    "media",
+    "link",
+    "photo",
+    "video",
+    "url",
+    "picture",
+    "image",
+    "download"
   ],
   "author": "victorsouzaleal <victorsouzaleal@gmail.com>",
   "license": "MIT",

@@ -12,8 +12,9 @@ module.exports = instagramGetUrl = (url_media) =>{
         }
         axios.post(url, qs.stringify(requestBody), config).then(result => {
             let $ = cheerio.load(result.data), ig = []
-            $('div.button_div > a').each(() => {
-                ig.push($(this).attr("href"))
+            $('div.button_div > a').each((i, element) => {
+                let cheerioElement = $(element)
+                ig.push(cheerioElement.attr("href"))
             })
             resolve({
                 results_number : ig.length,

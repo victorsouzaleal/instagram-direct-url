@@ -1,4 +1,4 @@
-const axios = require("axios"), cheerio = require("cheerio"),qs = require('querystring')
+const axios = require("axios"), cheerio = require("cheerio"),qs = require('qs')
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise((resolve,reject)=>{
         var url = "https://sssinstagram.com/results"
@@ -12,8 +12,8 @@ module.exports = instagramGetUrl = (url_media) =>{
         }
         axios.post(url, qs.stringify(requestBody), config).then(result => {
             let $ = cheerio.load(result.data), ig = []
-            $('div.button_div > a').each(i => {
-                ig[i] = $(this).attr("href")
+            $('div.button_div > a').each(() => {
+                ig.push($(this).attr("href"))
             })
             resolve({
                 results_number : ig.length,

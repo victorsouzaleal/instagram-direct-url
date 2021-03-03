@@ -13,7 +13,7 @@
 <p align="center">
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fvictorsouzaleal%2Finstagram-direct-url.git&count_bg=%23833AB4&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true"/></a>
 <a href="#"><img title="Version" src="https://img.shields.io/github/package-json/v/victorsouzaleal/instagram-direct-url?color=%23833AB4&logo=github&style=flat-square"></a>
-<a href="#"><img title="Size" src="https://img.shields.io/github/languages/code-size/victorsouzaleal/instagram-direct-url?color=%23833AB4&label=size&logo=github&style=flat-square"></a>
+<a href="#"><img title="Size" src="https://img.shields.io/bundlephobia/min/instagram-direct-url?color=%23833AB4&logo=npm&style=flat-square"></a>
 <a href="https://github.com/victorsouzaleal/followers"><img title="Followers" src="https://img.shields.io/github/followers/victorsouzaleal?color=%23833AB4&logo=github&style=flat-square"></a>
 <a href="https://github.com/victorsouzaleal/instagram-direct-url/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/victorsouzaleal/instagram-direct-url?color=%23833AB4&logo=github&style=flat-square"></a>
 <a href="https://github.com/victorsouzaleal/lbot-whatsapp/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/victorsouzaleal/instagram-direct-url?color=%23833AB4&logo=github&style=flat-square"></a>
@@ -33,10 +33,10 @@ console.log(links)
 ```
 ## Output Exemple
 ```
-	[
-    	'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-    ]
-````
+[
+    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+]
+```

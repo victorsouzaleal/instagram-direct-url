@@ -15,8 +15,10 @@ module.exports = instagramGetUrl = (url_media) =>{
             $('div.button_div > a').each(i => {
                 ig[i] = $(this).attr("href")
             })
-            if(ig.length == 0) reject(new Error("404 Media not found"))
-            resolve(ig)
+            resolve({
+                results_number : ig.length,
+                url_list: ig
+            })
         }).catch((err) => {
             reject(err)
         })

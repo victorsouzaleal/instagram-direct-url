@@ -30,11 +30,13 @@ let links = await instagramGetUrl("https://www.instagram.com/p/CL5QQPOJFl_/")
 console.log(links)
 ```
 ## Output Exemple
-```
-[
-    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-    'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-]
+```json
+{
+    results_number : 3,
+    url_list : [
+        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+    ]
+}
 ```

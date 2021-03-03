@@ -11,7 +11,7 @@
 <p align="center">
 <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fvictorsouzaleal%2Finstagram-direct-url.git&count_bg=%23833AB4&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true"/></a>
 <a href="#"><img title="Version" src="https://img.shields.io/github/package-json/v/victorsouzaleal/instagram-direct-url?color=%23833AB4&logo=github&style=flat-square"></a>
-<a href="#"><img title="Size" src="https://img.shields.io/bundlephobia/min/instagram-direct-url?color=%23833AB4&logo=npm&style=flat-square"></a>
+<a href="#"><img title="Size" src="https://img.shields.io/bundlephobia/min/instagram-url-direct?color=%23833AB4&logo=npm&style=flat-square"></a>
 <a href="https://github.com/victorsouzaleal/followers"><img title="Followers" src="https://img.shields.io/github/followers/victorsouzaleal?color=%23833AB4&logo=github&style=flat-square"></a>
 <a href="https://github.com/victorsouzaleal/instagram-direct-url/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/victorsouzaleal/instagram-direct-url?color=%23833AB4&logo=github&style=flat-square"></a>
 <a href="https://github.com/victorsouzaleal/lbot-whatsapp/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/victorsouzaleal/instagram-direct-url?color=%23833AB4&logo=github&style=flat-square"></a>
@@ -20,12 +20,12 @@
 
 ## Instalation :
 ```bash
-> npm i --save instagram-direct-url
+> npm i --save instagram-url-direct
 ```
 
 ## Example
 ```js
-const instagramGetUrl = require("instagram-direct-url")
+const instagramGetUrl = require("instagram-url-direct")
 let links = await instagramGetUrl("https://www.instagram.com/p/CL5QQPOJFl_/")
 console.log(links)
 ```

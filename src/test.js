@@ -1,8 +1,27 @@
 const instagramGetUrl = require("./index")
 
-async function main(){
-    let result = await instagramGetUrl("https://www.instagram.com/p/CMAMhvgsVal/")
-    console.log(result)
+async function test(url){
+    let result = await instagramGetUrl(url)
+    return result
 }
 
-main()
+test("https://www.instagram.com/p/CMAMhvgsVal/").then(result=>{
+    console.log("Test Videos/Images OK")
+    console.log(result)
+}).catch(err=>{
+    console.error(err.message)
+})
+
+test("https://www.instagram.com/p/CHSvvKXpkH6/").then(result=>{
+    console.log("Test Only Image OK")
+    console.log(result)
+}).catch(err=>{
+    console.error(err.message)
+})
+
+test("https://www.instagram.com/p/CK1i-IXHpgC/").then(result=>{
+    console.log("Test Only Video OK")
+    console.log(result)
+}).catch(err=>{
+    console.error(err.message)
+})

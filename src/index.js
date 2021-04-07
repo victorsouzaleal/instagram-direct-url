@@ -2,7 +2,7 @@ const axios = require("axios"), cheerio = require("cheerio"),qs = require('qs')
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise((resolve,reject)=>{
         url_media = url_media.replace("reel", "p")
-        var url = "https://igram.io/api/"
+        var url = "https://igram.io/a/"
         const requestBody = {
             url: url_media.replace("reel", "p"),
             lang_code: "en",

@@ -5,14 +5,21 @@ module.exports = instagramGetUrl = (url_media) =>{
         var url = "https://igram.io/i/"
         const requestBody = {
             url: url_media.replace("reel", "p"),
-            lang_code: "en",
-            vers: 2
+            lang_code: "en"
         }
 
         const config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            headers: { 
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36 Edg/89.0.774.75', 
+                'x-requested-with': ' XMLHttpRequest', 
+                'origin': ' https://igram.io', 
+                'referer': ' https://igram.io/en/dl/', 
+                'sec-fetch-dest': ' empty', 
+                'sec-fetch-mode': ' cors', 
+                'sec-fetch-site': ' same-origin', 
+                'Content-Type': 'application/x-www-form-urlencoded', 
+                'Cookie': '__cfduid=d4c2ddc2229a4d74c28b6ba25cdcd2a181618175605'
+              },
         }
 
         axios.post(url, qs.stringify(requestBody), config).then(result => {
@@ -33,6 +40,7 @@ module.exports = instagramGetUrl = (url_media) =>{
                 url_list: ig
             })
         }).catch(err=>{
+            console.log(err.response)
             reject(err)
         })
         /*

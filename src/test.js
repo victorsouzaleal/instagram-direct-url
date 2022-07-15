@@ -19,7 +19,7 @@ test("https://www.instagram.com/p/CHSvvKXpkH6/").then(result=>{
     console.error(err.message)
 })
 
-test("https://www.instagram.com/p/CK1i-IXHpgC/").then(result=>{
+test("https://www.instagram.com/tv/CdmYaq3LAYo/").then(result=>{
     console.log("Test Only Video OK")
     console.log(result)
 }).catch(err=>{

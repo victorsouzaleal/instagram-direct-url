@@ -26,17 +26,15 @@
 ## Example
 ```js
 const instagramGetUrl = require("instagram-url-direct")
-let links = await instagramGetUrl("https://www.instagram.com/p/CL5QQPOJFl_/")
+let links = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
 console.log(links)
 ```
-## Output Exemple
+## Output Example
 ```
 {
-    results_number : 3,
+    results_number : 1,
     url_list : [
-        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
-        'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/118774947_241673823S2_22161510709798728843_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=104&_nc_ohc=1697Ifcdsasdasd2312321=3213123213',
+        'https://scontent.cdninstagram.com/v/t50.2886-16/281176759_330829732466343_6214175692160325206_n.mp4?_nc_ht=scontent.cdninstagram.com&_nc_cat=103&_nc_ohc=tsiSkUxDxfEAX-u8MmX&edm=AJBgZrYBAAAA&ccb=7-5&oe=62D43703&oh=00_AT-8ndeJFByZE0H6IqNwZasKMBfaqXRiwGoFL1tR_RSflA&_nc_sid=78c662'
     ]
 }
 ```

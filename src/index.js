@@ -1,23 +1,33 @@
 const axios = require("axios"), cheerio = require("cheerio"),qs = require('qs')
 module.exports = instagramGetUrl = (url_media) =>{
-    return new Promise((resolve,reject)=>{
-        url_media = url_media.replace("reel", "p")
-        var axios = require('axios');
+    return new Promise(async (resolve,reject)=>{
+        const BASE_URL = "https://sssinstagram.com/pt"
+        
+        //New Session = Cookies
+        const resp = await axios.get(BASE_URL);
+        const cookie = resp.headers["set-cookie"]; // get cookie from request
+        const session = {
+            cookie: `${cookie[0]}; ${cookie[1]}`,
+            token: cookie[0].split(";")[0].replace("XSRF-TOKEN=","").replace("%3D", "")
+        }
+        //DATA
         var data = JSON.stringify({
-        "link": url_media
+            "link": url_media
         });
 
+        //REQUEST CONFIG
         var config = {
         method: 'post',
-        url: 'https://sssinstagram.com/pt/request',
+        url: `${BASE_URL}/request`,
         headers: { 
-            'cookie': 'XSRF-TOKEN=eyJpdiI6InZTYkdWN1hLcjk4Tmc5cFFtNStXRWc9PSIsInZhbHVlIjoiU3BqL2hkeXVseUVROW1jOE5YUFdEcnhkZzBnWFk5QitFaEh3bWs2Qjhvb1V4YnNvTEpTbDRBdytRWW1JVGw3QkZGdEdSS25vbkNQTCsvNFVCNmpyRHAwdnA0V0hTZ25PcWZRTGxLLzR2R08zemhJenBTalVXYWU2WjBpcytZa3kiLCJtYWMiOiI1MTY3MTQ2N2QzMjZkYTkxMzEwZjNiYjE3NTMxZDcwYWQzMmNkNTFiNDhjMjg2YmUxOGQyOTE5NDM5MmQyMjcxIiwidGFnIjoiIn0=; laravel_session=eyJpdiI6Im0wNWNKOVZsSWlpWWZhVWR0cDA2cXc9PSIsInZhbHVlIjoibm5aMng2S1drRzA0WkdPQ2YxaE1JVVhJZklBTExoQURQSjJPaWxTYVYyQTBBc2s0T1dBWVZXVkV4bUlnUVBaMGdsWmpiYnExZmhvdEd3LzIreGxONHdDWnF6ck5XYXY0OTVFaW93MTNqM1g5eUw1NVpzOTNQNHVzeFVIbVNKRUsiLCJtYWMiOiI3ZTZiOTk3MDgwODUyZjliYTBhN2E4YmM2NDAzMGNjNDk0NTdhYmVmNGU4ZmIxYmI5ZDhmOTVjZGQxYjRlZDc5IiwidGFnIjoiIn0=; XSRF-TOKEN=eyJpdiI6InNsVFk0UjZ0VDlCNGNkSDdFK01wdnc9PSIsInZhbHVlIjoiemdjT0UzdWo1Vjd1K2NQLzFCcVMzT3BiOW9qcFJtdXhZUlI4enZuOFdkbDd1alBINkpKZUZNTzZ1WlZtMFNxclRCakw1dWp4ZTQvM1IwOXh6T2RzK2pvV1ZaY2VGZUI3K0ZUZ2hQZXJEakdFcHd3VE5RT0k4UnFCYVo4eUtXZDciLCJtYWMiOiI0NmM4MmYxMjA5OWExOGVkZGJlZmI0NGQ2Y2FiNjVlZDQxN2IzZDVjNjIyYzIxMTdlZDA0MzY5NmQwMjUyZmJlIiwidGFnIjoiIn0%3D; laravel_session=eyJpdiI6IjZMZmNpNjAvUFRudlEyQ240ZTNmWlE9PSIsInZhbHVlIjoiUGZyUTljams1V3JzNjNRU1RSY1NvL21BazlrZnFpWnVvZzJMUVc0SzhvS081WTlIa3hjUUFwTTZZSTZiQkxNYk1CcUFlM3FiVUs2QU5WRzF3MStUMGxpSWRrUVR2Y3ZoUGlRTTNGbEpjR2hxOGEvWFlWeDluVnUxYlZFcHJaY1giLCJtYWMiOiI5YzQ2ZDYxNzA2MTg4MWI0NTEyMGRmZTc4ODgxMzczZWRmYmJmNjgyZjIyNjEyYTg3Y2M1ODhmYmY0Nzg3ZWVmIiwidGFnIjoiIn0%3D', 
-            'x-xsrf-token': 'eyJpdiI6InZTYkdWN1hLcjk4Tmc5cFFtNStXRWc9PSIsInZhbHVlIjoiU3BqL2hkeXVseUVROW1jOE5YUFdEcnhkZzBnWFk5QitFaEh3bWs2Qjhvb1V4YnNvTEpTbDRBdytRWW1JVGw3QkZGdEdSS25vbkNQTCsvNFVCNmpyRHAwdnA0V0hTZ25PcWZRTGxLLzR2R08zemhJenBTalVXYWU2WjBpcytZa3kiLCJtYWMiOiI1MTY3MTQ2N2QzMjZkYTkxMzEwZjNiYjE3NTMxZDcwYWQzMmNkNTFiNDhjMjg2YmUxOGQyOTE5NDM5MmQyMjcxIiwidGFnIjoiIn0=', 
+            'cookie': session.cookie, 
+            'x-xsrf-token': session.token,
             'Content-Type': 'application/json'
         },
         data : data
         };
 
+        //REQUEST
         axios(config).then(function (response) {
             let result = response.data, ig = [];
             if(result.data.type === "GraphSidecar"){

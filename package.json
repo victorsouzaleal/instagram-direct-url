@@ -29,8 +29,6 @@
   },
   "homepage": "https://github.com/victorsouzaleal/instagram-direct-url#readme",
   "dependencies": {
-    "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.5",
-    "qs": "^6.9.6"
+    "axios": "^0.21.1"
   }
 }

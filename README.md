@@ -18,18 +18,18 @@
 <a href="#"><img title="MAINTENED" src="https://img.shields.io/badge/MAINTENED-YES-%23833AB4?style=flat-square"/></a>
 </p>
 
-## Instalation :
+## Installation :
 ```bash
 > npm i --save instagram-url-direct
 ```
 
-## Example
+## Example :
 ```js
 const instagramGetUrl = require("instagram-url-direct")
 let links = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
 console.log(links)
 ```
-## Output Example
+## Output Example :
 ```
 {
     results_number : 1,

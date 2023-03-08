@@ -18,23 +18,23 @@
 <a href="#"><img title="MAINTENED" src="https://img.shields.io/badge/MAINTENED-YES-%23833AB4?style=flat-square"/></a>
 </p>
 
-## Instalation :
+## Installation
 ```bash
-> npm i --save instagram-url-direct
+> npm install --save instagram-url-direct
 ```
 
 ## Example
 ```js
-const instagramGetUrl = require("instagram-url-direct")
-let links = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
-console.log(links)
+const instagramGetUrl = require('instagram-url-direct');
+const data = await instagramGetUrl('https://www.instagram.com/p/CpTo4jfPJiz');
+console.log(data);
 ```
-## Output Example
+## Output
 ```
-{
-    results_number : 1,
-    url_list : [
-        'https://scontent.cdninstagram.com/v/t50.2886-16/281176759_330829732466343_6214175692160325206_n.mp4?_nc_ht=scontent.cdninstagram.com&_nc_cat=103&_nc_ohc=tsiSkUxDxfEAX-u8MmX&edm=AJBgZrYBAAAA&ccb=7-5&oe=62D43703&oh=00_AT-8ndeJFByZE0H6IqNwZasKMBfaqXRiwGoFL1tR_RSflA&_nc_sid=78c662'
-    ]
-}
+[
+  {
+    fileExtension: 'jpg',
+    directUrl: 'https://scontent.cdninstagram.com/v/t51.2885-15/331124941_920301342353839_7915519387355868397_n.jpg?stp=dst-jpg_e35_s1080x1080&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=urHySRc88YwAX-epd64&edm=APs17CUBAAAA&ccb=7-5&oh=00_AfBcED1UAH3jadGIflN2OcoU9DT6zCucixhi9WG2p0qSkQ&oe=640DCAE9&_nc_sid=978cb9&dl=1'
+  }
+]
 ```

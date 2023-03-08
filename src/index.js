@@ -1,12 +1,12 @@
 const axios = require('axios');
 
 /** 
- * This function intakes an instagramUrl of an image or video post, reel, or public account stories using InstaSuperSave API.
+ * This function intakes an instagramUrl of an image or video post, reel, or public account stories and returns with direct url using InstaSuperSave API.
  * @param {string} instagramUrl - The Instagram URL to convert.
- * @returns {Promise<Array<{fileExtension: string, rawUrl: string}> | string>} An array of objects containing fileExtension and rawUrl properties, If the API call fails, returns error message with additional information.
+ * @returns {Promise<Array<{fileExtension: string, directUrl: string}> | string>} An array of objects containing fileExtension and directUrl properties, If the API call fails, returns error message with additional information.
  */
 async function instagramGetUrl(instagramUrl) {
-    const api = 'https://instasupersave.com';
+	const api = 'https://instasupersave.com';
 	// Collect cookie from session.
 	try {
 		const {
@@ -34,15 +34,18 @@ async function instagramGetUrl(instagramUrl) {
 
 		// Call the API and process the data.
 		const { data } = await axios(requestHeaders);
-		return data.map(({ url }) => {
-			const { ext: fileExtension, url: rawUrl } = url[0];
-			return { fileExtension, rawUrl };
-		});
+		// console.log(data);
+		return Array.isArray(data)
+			? data.map((item) => {
+				const { ext: fileExtension, url: directUrl } = item.url[0];
+				return { fileExtension, directUrl: item?.sd?.url || directUrl };
+			})
+			: [{ fileExtension: data.url[0].ext, directUrl: data.url[0].url }];
 	} catch (error) {
 		return (await import('util')).format(
-			'[instagram-direct-url] %s (Status: %s, Status Text: %s)', 
-			error?.message || 'An error occurred.', 
-			error?.response?.status || 'None', 
+			'[instagram-direct-url] %s (Status: %s, Status Text: %s)',
+			error?.message || 'An error occurred.',
+			error?.response?.status || 'None',
 			error?.response?.statusText || 'None'
 		);
 	}

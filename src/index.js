@@ -1,53 +1,46 @@
 const axios = require("axios")
+const qs = require("qs")
+
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise(async (resolve,reject)=>{
-        const BASE_URL = "https://instasupersave.com/"
-        
-        //New Session = Cookies
-        try {
-            const resp = await axios(BASE_URL);
-            const cookie = resp.headers["set-cookie"]; // get cookie from request
-            const session = cookie[0].split(";")[0].replace("XSRF-TOKEN=","").replace("%3D", "")
-            
+        const BASE_URL = "https://api.sssgram.com/st-tik/ins/dl?"
+        try {            
             //REQUEST CONFIG
             var config = {
-                method: 'post',
-                url: `${BASE_URL}api/convert`,
+                method: 'get',
+                url: `${BASE_URL}url=${url_media}&timestamp=${Date.now()}`,
                 headers: { 
-                    'origin': 'https://instasupersave.com', 
-                    'referer': 'https://instasupersave.com/pt/', 
-                    'sec-fetch-dest': 'empty', 
-                    'sec-fetch-mode': 'cors', 
-                    'sec-fetch-site': 'same-origin', 
-                    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.52', 
-                    'x-xsrf-token': session, 
-                    'Content-Type': 'application/json', 
-                    'Cookie': `XSRF-TOKEN=${session}; instasupersave_session=${session}`
-                },
-                data : {
-                    url: url_media
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0',
+                    'Accept': 'application/json, text/plain, */*',
+                    'Accept-Language': 'pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3',
+                    'Accept-Encoding': 'gzip, deflate, br',
+                    'Origin': 'https://www.sssgram.com',
+                    'Connection': 'keep-alive',
+                    'Referer': 'https://www.sssgram.com/',
+                    'Sec-Fetch-Dest': 'empty',
+                    'Sec-Fetch-Mode': 'cors',
+                    'Sec-Fetch-Site': 'same-site'
                 }
-            };
+            }
 
             //REQUEST
-            axios(config).then(function (response) {
-                let ig = []
-                if(Array.isArray(response.data)){
-                    response.data.forEach(post => { ig.push(post.sd === undefined ? post.thumb : post.sd.url)})
-                } else {
-                    ig.push(response.data.url[0].url)    
+            axios(config)
+            .then(function (response) {
+                console.log(response.data)
+                let igresponse = {results_number: response.data.result.count || 0, url_list: []}
+                if(response.data.result.count != null){
+                    response.data.result.insBos.forEach(media => {
+                        igresponse.url_list.push(media.url)
+                    })
                 }
-                
-                resolve({
-                    results_number : ig.length,
-                    url_list: ig
-                })
+                resolve(igresponse)
             })
-            .catch(function (error) {
-                reject(error.message)
+            .catch((err) =>{
+                reject(err)
             })
-        } catch(e){
-            reject(e.message)
+
+        } catch(err){
+            reject(err)
         }
     })
 }

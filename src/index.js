@@ -26,7 +26,6 @@ module.exports = instagramGetUrl = (url_media) =>{
             //REQUEST
             axios(config)
             .then(function (response) {
-                console.log(response.data)
                 let igresponse = {results_number: response.data.result.count || 0, url_list: []}
                 if(response.data.result.count != null){
                     response.data.result.insBos.forEach(media => {

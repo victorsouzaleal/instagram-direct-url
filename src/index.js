@@ -42,7 +42,7 @@ module.exports = instagramGetUrl = (url_media) =>{
 
             downloadItems.each((index, element) => {
                 const downloadLink = $(element)
-                .find(".download-items__btn > a")
+                .find(".download-items__btn:not(.dl-thumb) > a")
                 .attr("href")
                 result.push(downloadLink)
             })

@@ -6,17 +6,18 @@ const cheerio = require('cheerio')
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise(async (resolve,reject)=>{
         try {          
-            const BASE_URL = "https://v3.saveig.app/api/ajaxSearch"
+            const BASE_URL = "https://v3.savevid.net/api/ajaxSearch"
             const params = {
                 q: url_media,
                 t: "media",
                 lang: "en",
+                v: 'v2'
             }
 
             const headers = {
                 Accept: "*/*",
-                Origin: "https://saveig.app",
-                Referer: "https://saveig.app/",
+                Origin: "https://savevid.net",
+                Referer: "https://savevid.net/",
                 "Accept-Encoding": "gzip, deflate, br",
                 "Accept-Language": "en-US,en;q=0.9",
                 "Content-Type": "application/x-www-form-urlencoded",

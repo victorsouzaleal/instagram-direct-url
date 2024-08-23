@@ -1,54 +1,50 @@
-const axios = require("axios").default
-const qs = require("qs")
-const cheerio = require('cheerio')
+const CryptoJS = require('crypto-js')
+
+function encryptUrl (input) {
+    const key = CryptoJS.enc.Utf8.parse('qwertyuioplkjhgf')
+    const iv = CryptoJS.lib.WordArray.random(16)
+
+    const encrypted = CryptoJS.AES.encrypt(input, key, {
+        iv: iv,
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+    });
+
+    const encryptedHex = encrypted.ciphertext.toString(CryptoJS.enc.Hex);
+    return encryptedHex
+}
 
 
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise(async (resolve,reject)=>{
-        try {          
-            const BASE_URL = "https://v3.savevid.net/api/ajaxSearch"
-            const params = {
-                q: url_media,
-                t: "media",
-                lang: "en",
-                v: 'v2'
-            }
-
+        try {
+            const BASE_URL = "https://backend.instavideosave.com/allinone"
             const headers = {
-                Accept: "*/*",
-                Origin: "https://savevid.net",
-                Referer: "https://savevid.net/",
-                "Accept-Encoding": "gzip, deflate, br",
-                "Accept-Language": "en-US,en;q=0.9",
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Sec-Ch-Ua":
-                '"Not/A)Brand";v="99", "Microsoft Edge";v="115", "Chromium";v="115"',
-                "Sec-Ch-Ua-Mobile": "?0",
-                "Sec-Ch-Ua-Platform": '"Windows"',
-                "Sec-Fetch-Dest": "empty",
-                "Sec-Fetch-Mode": "cors",
-                "Sec-Fetch-Site": "same-origin",
-                "User-Agent":
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.183",
-                "X-Requested-With": "XMLHttpRequest",
+                'url': encryptUrl(url_media)
             }
-
-            const response = await axios.post(BASE_URL, qs.stringify(params), {headers})
-            const responseData = response.data.data
-            if(!responseData) reject({results_number: 0 , url_list: []})
-                
-            const $ = cheerio.load(responseData)
-            const downloadItems = $(".download-items")
-            const result = []
-
-            downloadItems.each((index, element) => {
-                const downloadLink = $(element)
-                .find(".download-items__btn:not(.dl-thumb) > a")
-                .attr("href")
-                result.push(downloadLink)
+            const response = await fetch(BASE_URL, {
+                method: 'GET',
+                headers,
             })
 
-            let igresponse = {results_number: result.length , url_list: result}
+            const data = await response.json()
+            if (!data) reject({results_number: 0 , url_list: []})
+            
+            let url_list = []
+
+            if(data.video){
+                data.video.forEach(infovideo => {
+                    url_list.push(infovideo.video)
+                })
+            }
+
+            if(data.image){
+                data.image.forEach(image => {
+                    url_list.push(image)
+                })
+            }
+            
+            let igresponse = {results_number: url_list.length , url_list}
             resolve(igresponse)
         } catch(err){
             reject(err)

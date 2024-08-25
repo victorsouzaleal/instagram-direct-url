@@ -1,6 +1,6 @@
 {
   "name": "instagram-url-direct",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Get direct url to download from Instagram media links",
   "main": "src/index.js",
   "scripts": {

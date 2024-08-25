@@ -34,7 +34,11 @@ module.exports = instagramGetUrl = (url_media) =>{
 
             if(data.video){
                 data.video.forEach(infovideo => {
-                    url_list.push(infovideo.video)
+                    if(infovideo.video) {
+                        url_list.push(infovideo.video)
+                    } else {
+                        url_list.push(infovideo.thumbnail)
+                    }
                 })
             }
 
@@ -44,8 +48,7 @@ module.exports = instagramGetUrl = (url_media) =>{
                 })
             }
             
-            let igresponse = {results_number: url_list.length , url_list}
-            resolve(igresponse)
+            resolve({results_number: url_list.length , url_list})
         } catch(err){
             reject(err)
         }

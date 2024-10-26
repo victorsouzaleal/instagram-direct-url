@@ -1,52 +1,37 @@
-const CryptoJS = require('crypto-js')
+const axios = require('axios');
+const qs = require('qs');
 
-function encryptUrl (input) {
-    const key = CryptoJS.enc.Utf8.parse('qwertyuioplkjhgf')
-    const iv = CryptoJS.lib.WordArray.random(16)
-
-    const encrypted = CryptoJS.AES.encrypt(input, key, {
-        iv: iv,
-        mode: CryptoJS.mode.ECB,
-        padding: CryptoJS.pad.Pkcs7,
-    });
-
-    const encryptedHex = encrypted.ciphertext.toString(CryptoJS.enc.Hex);
-    return encryptedHex
-}
-
+axios.defaults.timeout = 0
 
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise(async (resolve,reject)=>{
         try {
-            const BASE_URL = "https://backend.instavideosave.com/allinone"
-            const headers = {
-                'url': encryptUrl(url_media)
-            }
-            const response = await fetch(BASE_URL, {
-                method: 'GET',
-                headers,
-            })
+            const BASE_URL = "https://aiovd.com/wp-json/aio-dl/video-data/"
 
-            const data = await response.json()
+            const dataBody = qs.stringify({
+                'url': url_media,
+                'token': '0d1a286f793e99721ae2b508c53abf74cc88d27e6ad7daedcaee8ef0ae749b8c' 
+            });
+              
+            const config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: BASE_URL,
+                headers: { 
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data : dataBody
+            };
+              
+            const {data} = await axios.request(config)
+
             if (!data) reject({results_number: 0 , url_list: []})
             
             let url_list = []
 
-            if(data.video){
-                data.video.forEach(infovideo => {
-                    if(infovideo.video) {
-                        url_list.push(infovideo.video)
-                    } else {
-                        url_list.push(infovideo.thumbnail)
-                    }
-                })
-            }
-
-            if(data.image){
-                data.image.forEach(image => {
-                    url_list.push(image)
-                })
-            }
+            data.medias.forEach(media => {
+                url_list.push(media.url)
+            })
             
             resolve({results_number: url_list.length , url_list})
         } catch(err){

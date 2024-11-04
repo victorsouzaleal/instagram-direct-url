@@ -30,11 +30,71 @@ let links = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
 console.log(links)
 ```
 ## Output Example
+
+### Single result
 ```
 {
     results_number : 1,
+    post_info:{
+        owner_username: "username",
+        owner_fullname: "fullname",
+        is_verified: false,
+        is_private: false,
+        likes: 6,
+        is_ad: false
+    }
     url_list : [
-        'https://scontent.cdninstagram.com/v/t50.2886-16/281176759_330829732466343_6214175692160325206_n.mp4?_nc_ht=scontent.cdninstagram.com&_nc_cat=103&_nc_ohc=tsiSkUxDxfEAX-u8MmX&edm=AJBgZrYBAAAA&ccb=7-5&oe=62D43703&oh=00_AT-8ndeJFByZE0H6IqNwZasKMBfaqXRiwGoFL1tR_RSflA&_nc_sid=78c662'
+        'https://scontent.cdninstagram.com....'
+    ],
+    media_details:[
+        {
+            type: "video",
+            dimensions: {height: "1080", width: "1920"},
+            video_view_count: 1000,
+            url: "https://scontent.cdninstagram.com...",
+            thumbnail: 'https://scontent.cdninstagram.com...'
+        }
+    ]
+}
+```
+
+### Multi results
+```
+{
+    results_number : 3,
+    post_info:{
+        owner_username: "username",
+        owner_fullname: "fullname",
+        is_verified: false,
+        is_private: false,
+        likes: 10,
+        is_ad: false
+    }
+    url_list : [
+        'https://scontent.cdninstagram.com...',
+        'https://scontent.cdninstagram.com...',
+        'https://scontent.cdninstagram.com...',
+    ],
+    media_details:[
+        {
+            type: "video",
+            dimensions: {height: "640", width: "640"},
+            video_view_count: 100,
+            url: "https://scontent.cdninstagram.com...",
+            thumbnail: 'https://scontent.cdninstagram.com...'
+        },
+        {
+            type: "video",
+            dimensions: {height: "640", width: "640"},
+            video_view_count: 100,
+            url: "https://scontent.cdninstagram.com...",
+            thumbnail: 'https://scontent.cdninstagram.com...'
+        },
+        {
+            type: "image",
+            dimensions: {height: "640", width: "640"},
+            url: "https://scontent.cdninstagram.com...",
+        }
     ]
 }
 ```

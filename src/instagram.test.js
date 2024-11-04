@@ -6,7 +6,7 @@ describe("instagramGetUrl", ()=>{
     })
     
     test("Should successfully get a single video from the post", async ()=>{
-        await expect(instagramGetUrl("https://www.instagram.com/p/C-xlSrwuOfB/")).toResolve()
+        await expect(instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")).toResolve()
     })
 
     test("Should successfully get a single image from the post", async ()=>{

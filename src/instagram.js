@@ -41,7 +41,8 @@ function formatMediaDetails(mediaData){
 function getShortcode(url){
     try{
         let split_url = url.split("/")
-        let index_shortcode = split_url.findIndex(item => item == "p" || item == "reel") + 1
+        let post_tags = ["p", "reel", "tv"]
+        let index_shortcode = split_url.findIndex(item => post_tags.includes(item)) + 1
         let shortcode = split_url[index_shortcode]
         return shortcode
     } catch(err){

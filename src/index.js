@@ -6,42 +6,47 @@ axios.defaults.timeout = 0
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise(async (resolve,reject)=>{
         try {
-            const BASE_URL = "https://instagram-scraper-api2.p.rapidapi.com/v1/post_info"
+            const BASE_URL = "https://www.instagram.com/graphql/query"
+            const INSTAGRAM_DOCUMENT_ID = "8845758582119845"
+            const split_url_media = url_media.split("/")
+            const index_id_video = split_url_media.findIndex(item => item == "p" || item == "reel") + 1
+            const ID_POST = split_url_media[index_id_video]
+        
+            let dataBody = qs.stringify({
+            'variables': JSON.stringify({
+                'shortcode':ID_POST,
+                'fetch_tagged_user_count': null,
+                'hoisted_comment_id': null,
+                'hoisted_reply_id': null
+            }),
+            'doc_id': INSTAGRAM_DOCUMENT_ID 
+            });
+
             let config = {
-                method: 'get',
+                method: 'post',
                 maxBodyLength: Infinity,
-                url: `${BASE_URL}?code_or_id_or_url=${url_media}&include_insights=false`,
+                url: BASE_URL,
                 headers: { 
-                  'Host': ' instagram-scraper-api2.p.rapidapi.com', 
-                  'User-Agent': ' Mozilla/5.0 (X11; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0', 
-                  'Accept': ' */*', 
-                  'Accept-Language': ' pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3', 
-                  'Accept-Encoding': ' gzip, deflate, br, zstd', 
-                  'Referer': ' https://storyclone.com/', 
-                  'x-rapidapi-host': ' instagram-scraper-api2.p.rapidapi.com', 
-                  'x-rapidapi-key': ' 61f99d3e77msh61688cbb09796b4p18b365jsn09c26ce3e5c4', 
-                  'Origin': ' https://storyclone.com', 
-                  'Connection': ' keep-alive', 
-                  'Sec-Fetch-Dest': ' empty', 
-                  'Sec-Fetch-Mode': ' cors', 
-                  'Sec-Fetch-Site': ' cross-site', 
-                  'Priority': ' u=0', 
-                  'TE': ' trailers'
-                }
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data : dataBody
             };
-            const {data} = await axios.request(config)
-            if (!data) reject({results_number: 0 , url_list: []})
+
+            const {data : result} = await axios.request(config)
+            const media_info = result.data.xdt_shortcode_media
+            if (!result) reject({results_number: 0 , url_list: []})
             let url_list = []
-            if(data.data.carousel_media){
-                data.data.carousel_media.forEach(media => {
-                    if(media.is_video){
-                        url_list.push(media.video_url)
+            if(media_info.edge_sidecar_to_children){
+                media_info.edge_sidecar_to_children.edges.forEach(media => {
+                    if(media.node.is_video){
+                        url_list.push(media.node.video_url)
                     } else {
-                        url_list.push(media.thumbnail_url)
+                        console.log(media)
+                        url_list.push(media.node.display_url)
                     }
                 })
             } else {
-                url_list.push(data.data.is_video ? data.data.video_url : data.data.thumbnail_url)
+                url_list.push(media_info.is_video ? media_info.video_url : media_info.display_url)
             }
 
             resolve({results_number: url_list.length , url_list})

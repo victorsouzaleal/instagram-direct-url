@@ -82,7 +82,7 @@ async function instagramRequest(shortcode) {
         };
     
         const {data} = await axios.request(config)
-        if(!data.data?.xdt_shortcode_media) throw new Error("Only posts/reels supported.")
+        if(!data.data?.xdt_shortcode_media) throw new Error("Only posts/reels supported, check if your link is valid.")
         return data.data.xdt_shortcode_media
     } catch(err){
         throw new Error(`Failed instagram request: ${err.message}`)
@@ -112,7 +112,7 @@ function createOutputData(requestData){
                 url_list.push(requestData.display_url)
             }
         }
-    
+
         return {
             results_number: url_list.length,
             url_list,

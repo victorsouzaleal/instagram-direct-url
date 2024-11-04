@@ -12,4 +12,8 @@ describe("instagramGetUrl", ()=>{
     test("Should successfully get a single image from the post", async ()=>{
         await expect(instagramGetUrl("https://www.instagram.com/uniaomalacos.ofc/p/C6bkGqBuGwD/?__d=1%2F")).toResolve()
     })
+
+    test("Should give a error on invalid link", async()=>{
+        await expect(instagramGetUrl("https://www.instagram.com/uniaomalacos.ofc/p/C6bkGq323BuGwD/")).toReject()
+    })
 })

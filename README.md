@@ -18,6 +18,11 @@
 <a href="#"><img title="MAINTENED" src="https://img.shields.io/badge/MAINTENED-YES-%23833AB4?style=flat-square"/></a>
 </p>
 
+## Works with:
+It currently works with general Instagram posts, which can contain multiple images/videos or a single one.
+
+Stories not supported.
+
 ## Instalation :
 ```bash
 > npm i --save instagram-url-direct
@@ -26,8 +31,8 @@
 ## Example
 ```js
 const instagramGetUrl = require("instagram-url-direct")
-let links = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
-console.log(links)
+let data = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
+console.log(data)
 ```
 ## Output Example
 

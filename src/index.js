@@ -41,7 +41,6 @@ module.exports = instagramGetUrl = (url_media) =>{
                     if(media.node.is_video){
                         url_list.push(media.node.video_url)
                     } else {
-                        console.log(media)
                         url_list.push(media.node.display_url)
                     }
                 })

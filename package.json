@@ -1,13 +1,15 @@
 {
   "name": "instagram-url-direct",
-  "version": "1.0.25",
+  "version": "1.1.0",
   "description": "Get direct url to download from Instagram media links",
   "main": "src/instagram.js",
   "scripts": {
     "test": "jest"
   },
   "jest": {
-    "setupFilesAfterEnv": ["jest-extended/all"]
+    "setupFilesAfterEnv": [
+      "jest-extended/all"
+    ]
   },
   "repository": {
     "type": "git",

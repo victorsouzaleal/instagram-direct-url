@@ -3,13 +3,16 @@ const qs = require('qs')
 
 function formatPostInfo(requestData){
     try{
+        let mediaCapt = requestData.edge_media_to_caption.edges
+        const capt = (mediaCapt.length === 0) ? "" : mediaCapt[0].node.text
         return {
             owner_username: requestData.owner.username,
             owner_fullname: requestData.owner.full_name,
             is_verified: requestData.owner.is_verified,
             is_private: requestData.owner.is_private,
             likes: requestData.edge_media_preview_like.count,
-            is_ad: requestData.is_ad
+            is_ad: requestData.is_ad,
+            caption: capt
         }
     } catch(err){
         throw new Error(`Failed to format post info: ${err.message}`)

@@ -1,6 +1,16 @@
 const axios = require('axios')
 const qs = require('qs')
 
+
+async function checkRedirect(url){
+    let split_url = url.split("/")
+    if(split_url.includes("share")){
+        let res = await axios.get(url)
+        return res.request.path
+    }
+    return url
+}
+
 function formatPostInfo(requestData){
     try{
         return {
@@ -41,7 +51,7 @@ function formatMediaDetails(mediaData){
 function getShortcode(url){
     try{
         let split_url = url.split("/")
-        let post_tags = ["p", "reel", "tv"]
+        let post_tags = ["p", "reel", "tv", "reels"]
         let index_shortcode = split_url.findIndex(item => post_tags.includes(item)) + 1
         let shortcode = split_url[index_shortcode]
         return shortcode
@@ -129,6 +139,7 @@ function createOutputData(requestData){
 module.exports = instagramGetUrl = (url_media) =>{
     return new Promise(async (resolve,reject)=>{
         try {
+            url_media = await checkRedirect(url_media)
             const SHORTCODE = getShortcode(url_media)
             const INSTAGRAM_REQUEST = await instagramRequest(SHORTCODE)
             const OUTPUT_DATA = createOutputData(INSTAGRAM_REQUEST)

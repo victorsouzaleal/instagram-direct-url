@@ -1,8 +1,55 @@
-const axios = require('axios')
-const qs = require('qs')
+import axios from 'axios'
+import qs from 'qs'
 
+//Interface
+export interface InstagramResponse {
+    results_number: number,
+    url_list: string[],
+    post_info: {
+        owner_username: string,
+        owner_fullname: string,
+        is_verified: boolean,
+        is_private: boolean,
+        likes: number,
+        is_ad: boolean,
+        caption: string
+    },
+    media_details: {
+        type: string,
+        dimensions: {
+            height: number,
+            width: number
+        },
+        url: string,
+        video_view_count?: number,
+        thumbnail?: string
+    }[],
+}
 
-async function checkRedirect(url){
+export interface InstagramError {
+    error: string
+}
+
+//Main function
+export default async function instagramGetUrl (url_media : string){
+    return new Promise <InstagramResponse> (async (resolve,reject)=>{
+        try {
+            url_media = await checkRedirect(url_media)
+            const SHORTCODE = getShortcode(url_media)
+            const INSTAGRAM_REQUEST = await instagramRequest(SHORTCODE)
+            const OUTPUT_DATA = createOutputData(INSTAGRAM_REQUEST)
+            resolve(OUTPUT_DATA as InstagramResponse)
+        } catch(err : any){
+            let error = {
+                error: err.message
+            }
+            reject(error)
+        }
+    })
+}
+
+//Utilities
+async function checkRedirect (url : string){
     let split_url = url.split("/")
     if(split_url.includes("share")){
         let res = await axios.get(url)
@@ -11,7 +58,7 @@ async function checkRedirect(url){
     return url
 }
 
-function formatPostInfo(requestData){
+function formatPostInfo(requestData : any){
     try{
         let mediaCapt = requestData.edge_media_to_caption.edges
         const capt = (mediaCapt.length === 0) ? "" : mediaCapt[0].node.text
@@ -24,12 +71,12 @@ function formatPostInfo(requestData){
             is_ad: requestData.is_ad,
             caption: capt
         }
-    } catch(err){
+    } catch(err : any){
         throw new Error(`Failed to format post info: ${err.message}`)
     }
 }
 
-function formatMediaDetails(mediaData){
+function formatMediaDetails(mediaData : any){
     try{
         if(mediaData.is_video){
             return {
@@ -46,32 +93,32 @@ function formatMediaDetails(mediaData){
                 url: mediaData.display_url
             }
         }
-    } catch(err){
+    } catch(err : any){
         throw new Error(`Failed to format media details: ${err.message}`)
     }
 }
 
-function getShortcode(url){
+function getShortcode(url : string){
     try{
         let split_url = url.split("/")
         let post_tags = ["p", "reel", "tv", "reels"]
         let index_shortcode = split_url.findIndex(item => post_tags.includes(item)) + 1
         let shortcode = split_url[index_shortcode]
         return shortcode
-    } catch(err){
+    } catch(err : any){
         throw new Error(`Failed to obtain shortcode: ${err.message}`)
     }
 }
 
-function isSidecar(requestData){
+function isSidecar(requestData : any){
     try{
         return requestData["__typename"] == "XDTGraphSidecar"
-    } catch(err){
+    } catch(err : any){
         throw new Error(`Failed sidecar verification: ${err.message}`)
     }
 }
 
-async function instagramRequest(shortcode) {
+async function instagramRequest(shortcode: string) {
     try{
         const BASE_URL = "https://www.instagram.com/graphql/query"
         const INSTAGRAM_DOCUMENT_ID = "8845758582119845"
@@ -98,32 +145,32 @@ async function instagramRequest(shortcode) {
         const {data} = await axios.request(config)
         if(!data.data?.xdt_shortcode_media) throw new Error("Only posts/reels supported, check if your link is valid.")
         return data.data.xdt_shortcode_media
-    } catch(err){
+    } catch(err : any){
         throw new Error(`Failed instagram request: ${err.message}`)
     }
 }
 
-function createOutputData(requestData){
+function createOutputData(requestData : any){
     try{
         let url_list = [], media_details = []
         const IS_SIDECAR = isSidecar(requestData)
         if(IS_SIDECAR){
             //Post with sidecar
-            requestData.edge_sidecar_to_children.edges.forEach((media)=>{
+            requestData.edge_sidecar_to_children.edges.forEach((media : any)=>{
                 media_details.push(formatMediaDetails(media.node))
                 if(media.node.is_video){ //Sidecar video item
-                    url_list.push(media.node.video_url)
+                    url_list.push(media.node.video_url as string)
                 } else { //Sidecar image item
-                    url_list.push(media.node.display_url)
+                    url_list.push(media.node.display_url as string)
                 }
             })
         } else {
             //Post without sidecar
             media_details.push(formatMediaDetails(requestData))
             if(requestData.is_video){ // Video media
-                url_list.push(requestData.video_url)
+                url_list.push(requestData.video_url as string)
             } else { //Image media
-                url_list.push(requestData.display_url)
+                url_list.push(requestData.display_url as string)
             }
         }
 
@@ -133,24 +180,10 @@ function createOutputData(requestData){
             post_info: formatPostInfo(requestData),
             media_details
         }
-    } catch(err){
+    } catch(err : any){
         throw new Error(`Failed to create output data: ${err.message}`)
     }
 }
 
 
-module.exports = instagramGetUrl = (url_media) =>{
-    return new Promise(async (resolve,reject)=>{
-        try {
-            url_media = await checkRedirect(url_media)
-            const SHORTCODE = getShortcode(url_media)
-            const INSTAGRAM_REQUEST = await instagramRequest(SHORTCODE)
-            const OUTPUT_DATA = createOutputData(INSTAGRAM_REQUEST)
-            resolve(OUTPUT_DATA)
-        } catch(err){
-            reject({
-                error: err.message
-            })
-        }
-    })
-}
+

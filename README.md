@@ -28,9 +28,16 @@ Stories not supported.
 > npm i --save instagram-url-direct
 ```
 
-## Example
+## Example Module
 ```js
-import instagramGetUrl from "instagram-url-direct"
+import {instagramGetUrl} from "instagram-url-direct"
+let data = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
+console.log(data)
+```
+
+## Example CommonJS
+```js
+const {instagramGetUrl} = require("instagram-url-direct")
 let data = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
 console.log(data)
 ```

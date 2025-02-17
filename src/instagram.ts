@@ -31,7 +31,7 @@ export interface InstagramError {
 }
 
 //Main function
-export default async function instagramGetUrl (url_media : string){
+export async function instagramGetUrl (url_media : string){
     return new Promise <InstagramResponse> (async (resolve,reject)=>{
         try {
             url_media = await checkRedirect(url_media)

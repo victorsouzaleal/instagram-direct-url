@@ -10,14 +10,9 @@
   ],
   "exports": {
     ".": {
-      "require": {
-        "default": "./dist/cjs/instagram.js",
-        "types": "./dist/types/instagram.d.ts"
-      },
-      "import": {
-        "default": "./dist/esm/instagram.js",
-        "types": "./dist/types/instagram.d.ts"
-      }
+      "require": "./dist/cjs/instagram.js",
+      "import": "./dist/esm/instagram.js",
+      "types": "./dist/types/instagram.d.ts"
     },
     "./package.json": "./package.json"
   },

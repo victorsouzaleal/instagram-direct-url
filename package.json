@@ -1,6 +1,6 @@
 {
   "name": "instagram-url-direct",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Get direct url to download from Instagram media links",
   "main": "dist/esm/instagram.js",
   "types": "dist/types/instagram.d.ts",

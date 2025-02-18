@@ -25,7 +25,7 @@ Stories not supported.
 
 ## Instalation :
 ```bash
-> npm i --save instagram-url-direct
+> npm i instagram-url-direct@latest
 ```
 
 ## Example Module

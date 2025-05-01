@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import qs from 'qs'
 
 //Interface
@@ -31,12 +31,12 @@ export interface InstagramError {
 }
 
 //Main function
-export async function instagramGetUrl (url_media : string){
+export async function instagramGetUrl (url_media : string, config = { retries: 5, delay: 1000 }){
     return new Promise <InstagramResponse> (async (resolve,reject)=>{
         try {
             url_media = await checkRedirect(url_media)
             const SHORTCODE = getShortcode(url_media)
-            const INSTAGRAM_REQUEST = await instagramRequest(SHORTCODE)
+            const INSTAGRAM_REQUEST = await instagramRequest(SHORTCODE, config.retries, config.delay)
             const OUTPUT_DATA = createOutputData(INSTAGRAM_REQUEST)
             resolve(OUTPUT_DATA as InstagramResponse)
         } catch(err : any){
@@ -118,7 +118,7 @@ function isSidecar(requestData : any){
     }
 }
 
-async function instagramRequest(shortcode: string) {
+async function instagramRequest(shortcode: string, retries: number, delay: number) {
     try{
         const BASE_URL = "https://www.instagram.com/graphql/query"
         const INSTAGRAM_DOCUMENT_ID = "8845758582119845"
@@ -132,7 +132,7 @@ async function instagramRequest(shortcode: string) {
             'doc_id': INSTAGRAM_DOCUMENT_ID 
         });
     
-        let config = {
+        let config : AxiosRequestConfig = {
             method: 'post',
             maxBodyLength: Infinity,
             url: BASE_URL,
@@ -142,10 +142,19 @@ async function instagramRequest(shortcode: string) {
             data : dataBody
         };
     
-        const {data} = await axios.request(config)
+        const { data } = await axios.request(config)
         if(!data.data?.xdt_shortcode_media) throw new Error("Only posts/reels supported, check if your link is valid.")
         return data.data.xdt_shortcode_media
     } catch(err : any){
+        const errorCodes = [429, 403]
+
+        if (err.response && errorCodes.includes(err.response.status) && retries > 0) {
+            const retryAfter = err.response.headers['retry-after']
+            const waitTime = retryAfter ? parseInt(retryAfter) * 1000 : delay
+            await new Promise(res => setTimeout(res, waitTime))
+            return instagramRequest(shortcode, retries - 1, delay * 2)
+        }
+
         throw new Error(`Failed instagram request: ${err.message}`)
     }
 }

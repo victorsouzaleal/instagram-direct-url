@@ -8,6 +8,7 @@ export interface InstagramResponse {
     post_info: {
         owner_username: string,
         owner_fullname: string,
+        owner_profile_pic: string;
         is_verified: boolean,
         is_private: boolean,
         likes: number,
@@ -65,6 +66,7 @@ function formatPostInfo(requestData : any){
         return {
             owner_username: requestData.owner.username,
             owner_fullname: requestData.owner.full_name,
+            owner_profile_pic: requestData.owner.profile_pic_url,
             is_verified: requestData.owner.is_verified,
             is_private: requestData.owner.is_private,
             likes: requestData.edge_media_preview_like.count,

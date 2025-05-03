@@ -50,6 +50,7 @@ console.log(data)
     post_info:{
         owner_username: "username",
         owner_fullname: "fullname",
+        owner_profile_pic: "profile_pic_url",
         is_verified: false,
         is_private: false,
         likes: 6,
@@ -77,6 +78,7 @@ console.log(data)
     post_info:{
         owner_username: "username",
         owner_fullname: "fullname",
+        owner_profile_pic: "profile_pic_url",
         is_verified: false,
         is_private: false,
         likes: 10,

@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import qs from 'qs'
 
 //Interface
@@ -110,27 +110,24 @@ function getShortcode(url : string){
     }
 }
 
-async function getCSRFToken(baseURL: string, data: string){
+async function getCSRFToken(){
     try {
         let config : AxiosRequestConfig = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: baseURL,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            data
+            method: 'GET',
+            url: 'https://www.instagram.com/graphql/query/?doc_id=7950326061742207&variables=%7B%22id%22%3A%2259237287799%22%2C%22include_clips_attribution_info%22%3Afalse%2C%22first%22%3A12%7D',
         }
 
         const token = await new Promise <string>((resolve, reject) => {
-            axios.request(config).catch((err) => {
-                if (!err.response?.headers['set-cookie']) {
-                    reject(err)
+            axios.request(config).then((response: AxiosResponse) => {
+                if (!response.headers['set-cookie']){
+                    reject()
                 } else {
-                    const csrfCookie = err.response?.headers['set-cookie'][0]
+                    const csrfCookie = response.headers['set-cookie'][0]
                     const csrfToken = csrfCookie.split(";")[0].replace("csrftoken=", '')
                     resolve(csrfToken)
                 }
+            }).catch((err) => {
+                reject(err)
             })
         })
 
@@ -162,7 +159,7 @@ async function instagramRequest(shortcode: string, retries: number, delay: numbe
             'doc_id': INSTAGRAM_DOCUMENT_ID 
         });
 
-        const token = await getCSRFToken(BASE_URL, dataBody)
+        const token = await getCSRFToken()
 
         let config : AxiosRequestConfig = {
             method: 'post',

@@ -40,10 +40,7 @@ export async function instagramGetUrl (url_media : string, config = { retries: 5
             const OUTPUT_DATA = createOutputData(INSTAGRAM_REQUEST)
             resolve(OUTPUT_DATA as InstagramResponse)
         } catch(err : any){
-            let error = {
-                error: err.message
-            }
-            reject(error)
+            reject(err)
         }
     })
 }
@@ -51,10 +48,12 @@ export async function instagramGetUrl (url_media : string, config = { retries: 5
 //Utilities
 async function checkRedirect (url : string){
     let split_url = url.split("/")
-    if(split_url.includes("share")){
+    
+    if (split_url.includes("share")){
         let res = await axios.get(url)
         return res.request.path
     }
+
     return url
 }
 

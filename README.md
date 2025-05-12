@@ -9,7 +9,6 @@
 </p>
 </p>
 <p align="center">
-<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fvictorsouzaleal%2Finstagram-direct-url.git&count_bg=%23833AB4&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=true"/></a>
 <a href="#"><img title="Version" src="https://img.shields.io/github/package-json/v/victorsouzaleal/instagram-direct-url?color=%23833AB4&logo=github&style=flat-square"></a>
 <a href="#"><img title="Size" src="https://img.shields.io/bundlephobia/min/instagram-url-direct?color=%23833AB4&logo=npm&style=flat-square"></a>
 <a href="https://github.com/victorsouzaleal/followers"><img title="Followers" src="https://img.shields.io/github/followers/victorsouzaleal?color=%23833AB4&logo=github&style=flat-square"></a>
@@ -28,85 +27,36 @@ Stories not supported.
 > npm i instagram-url-direct@latest
 ```
 
-## Example Module
+## Example
 ```js
-import {instagramGetUrl} from "instagram-url-direct"
+import { instagramGetUrl } from "instagram-url-direct"
 let data = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
 console.log(data)
 ```
 
-## Example CommonJS
-```js
-const {instagramGetUrl} = require("instagram-url-direct")
-let data = await instagramGetUrl("https://www.instagram.com/tv/CdmYaq3LAYo/")
-console.log(data)
-```
-## Output Example
+## Result Example
 
-### Single result
 ```
 {
-    results_number : 1,
-    post_info:{
-        owner_username: "username",
-        owner_fullname: "fullname",
-        is_verified: false,
-        is_private: false,
-        likes: 6,
-        is_ad: false
-    }
-    url_list : [
-        'https://scontent.cdninstagram.com....'
-    ],
-    media_details:[
-        {
-            type: "video",
-            dimensions: {height: "1080", width: "1920"},
-            video_view_count: 1000,
-            url: "https://scontent.cdninstagram.com...",
-            thumbnail: 'https://scontent.cdninstagram.com...'
-        }
-    ]
-}
-```
-
-### Multi results
-```
-{
-    results_number : 3,
-    post_info:{
-        owner_username: "username",
-        owner_fullname: "fullname",
-        is_verified: false,
-        is_private: false,
-        likes: 10,
-        is_ad: false
-    }
-    url_list : [
-        'https://scontent.cdninstagram.com...',
-        'https://scontent.cdninstagram.com...',
-        'https://scontent.cdninstagram.com...',
-    ],
-    media_details:[
-        {
-            type: "video",
-            dimensions: {height: "640", width: "640"},
-            video_view_count: 100,
-            url: "https://scontent.cdninstagram.com...",
-            thumbnail: 'https://scontent.cdninstagram.com...'
+    results_number: number,
+    post_info: {
+        owner_username: string,
+        owner_fullname: string,
+        is_verified: boolean,
+        is_private: boolean,
+        likes: number,
+        is_ad: boolean
+    },
+    url_list: string[],
+    media_details: {
+        type: 'video' | 'image',
+        dimensions: { 
+            height: string, 
+            width: string
         },
-        {
-            type: "video",
-            dimensions: {height: "640", width: "640"},
-            video_view_count: 100,
-            url: "https://scontent.cdninstagram.com...",
-            thumbnail: 'https://scontent.cdninstagram.com...'
-        },
-        {
-            type: "image",
-            dimensions: {height: "640", width: "640"},
-            url: "https://scontent.cdninstagram.com...",
-        }
-    ]
+        video_view_count: number,
+        url: string,
+        thumbnail: string
+    }[]
 }
 ```

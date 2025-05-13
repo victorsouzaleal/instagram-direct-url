@@ -36,7 +36,7 @@ console.log(data)
 
 ## Result Example
 
-```
+```ts
 {
     results_number: number,
     post_info: {

@@ -113,13 +113,13 @@ async function getCSRFToken(){
     try {
         let config : AxiosRequestConfig = {
             method: 'GET',
-            url: 'https://www.instagram.com/graphql/query/?doc_id=7950326061742207&variables=%7B%22id%22%3A%2259237287799%22%2C%22include_clips_attribution_info%22%3Afalse%2C%22first%22%3A12%7D',
+            url: 'https://www.instagram.com/',
         }
 
         const token = await new Promise <string>((resolve, reject) => {
             axios.request(config).then((response: AxiosResponse) => {
                 if (!response.headers['set-cookie']){
-                    reject()
+                    reject(new Error('CSRF token not found in response headers.'))
                 } else {
                     const csrfCookie = response.headers['set-cookie'][0]
                     const csrfToken = csrfCookie.split(";")[0].replace("csrftoken=", '')

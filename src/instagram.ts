@@ -119,7 +119,7 @@ async function getCSRFToken(){
         const token = await new Promise <string>((resolve, reject) => {
             axios.request(config).then((response: AxiosResponse) => {
                 if (!response.headers['set-cookie']){
-                    reject({ message: "CSRF token not found in response headers." })
+                    reject(new Error('CSRF token not found in response headers.'))
                 } else {
                     const csrfCookie = response.headers['set-cookie'][0]
                     const csrfToken = csrfCookie.split(";")[0].replace("csrftoken=", '')
